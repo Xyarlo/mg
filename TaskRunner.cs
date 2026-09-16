@@ -1,25 +1,32 @@
 using System.Diagnostics;
+using Mg.Tasks;
 
 namespace Mg;
 
 public sealed class TaskRunner
 {
+    private readonly IReadOnlyDictionary<string, IMgTask> tasks;
     private readonly string projectPath;
 
     public TaskRunner(string projectPath)
     {
         this.projectPath = projectPath;
+        tasks = new Dictionary<string, IMgTask>(StringComparer.OrdinalIgnoreCase)
+        {
+            ["build"] = new BuildTask(),
+            ["run"] = new RunTask(),
+            ["publish"] = new PublishTask()
+        };
     }
 
     public int Run(string taskName)
     {
-        var arguments = taskName switch
+        if (!tasks.TryGetValue(taskName, out IMgTask? task))
         {
-            "build" => new[] { "build", "-c", "Debug", projectPath },
-            "run" => new[] { "run", "-c", "Debug", "--no-build", "--project", projectPath },
-            "publish" => new[] { "publish", "-c", "Release", projectPath },
-            _ => throw new InvalidOperationException($"Unknown task: {taskName}")
-        };
+            throw new InvalidOperationException($"Unknown task: {taskName}");
+        }
+
+        IReadOnlyList<string> arguments = task.GetArguments(projectPath);
 
         Console.WriteLine($"> dotnet {string.Join(' ', arguments.Select(QuoteArgument))}");
 
