@@ -1,5 +1,0 @@
-C:\Users\anton\projects\mg\bin\Release\net10.0\publish\mg.exe
-C:\Users\anton\projects\mg\bin\Release\net10.0\publish\mg.dll
-C:\Users\anton\projects\mg\bin\Release\net10.0\publish\mg.deps.json
-C:\Users\anton\projects\mg\bin\Release\net10.0\publish\mg.runtimeconfig.json
-C:\Users\anton\projects\mg\bin\Release\net10.0\publish\mg.pdb
