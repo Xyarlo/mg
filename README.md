@@ -2,9 +2,15 @@
 
 A small command-line wrapper for MonoGame development.
 
-## Configuration
+## Installation
+
+Download the latest binary Release and add it to your PATH.
+
+## Project Configuration
 
 Copy `mg.config.example` to `mg.config` in the MonoGame project directory and update the project path. Relative paths are resolved from the directory containing `mg.config`.
+
+mg does currently not offer any project-specific configurations.
 
 ```ini
 [project]
